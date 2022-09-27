@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <rd:DataSourceID>b416fabf-039e-4742-a0b0-885baa05ee42</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=olap;Initial Catalog=LocalFTS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>29.7cm</InteractiveHeight>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>21cm</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>2.5cm</RightMargin>
+  <LeftMargin>2.5cm</LeftMargin>
+  <PageHeader>
+    <PrintOnFirstPage>true</PrintOnFirstPage>
+    <ReportItems>
+      <Textbox Name="HTML">
+        <rd:DefaultName>HTML</rd:DefaultName>
+        <Top>0.125cm</Top>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>0.5cm</Height>
+        <Value>="HTMLInject:"+First(Fields!HTML.Value, "LocalFTS")</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>0.75cm</Height>
+    <PrintOnLastPage>true</PrintOnLastPage>
+  </PageHeader>
+  <BottomMargin>2.5cm</BottomMargin>
+  <rd:ReportID>c0fcd782-904f-4b38-b589-0c53d821e89d</rd:ReportID>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="LocalFTS">
+      <Fields>
+        <Field Name="HTML">
+          <DataField>HTML</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>Select '&lt;table cellpadding=0 cellspacing=0 class="bodytable" width="100%" height="100%"&gt;
+&lt;!--        Шапка сайта   --&gt;
+  &lt;tr class="body-top" height="40"&gt;
+    &lt;td&gt;
+&lt;table cellpadding=0 cellspacing=0 class="menu" width="100%"&gt;
+  &lt;tr class="body-top"&gt;
+    &lt;td class="left" width="20%"&gt;
+      &lt;a href="http://ntbcargo.ru" target="_top"&gt;
+      &lt;img width="96" height="56" src="/images/image001.jpg" alt="" /&gt;&lt;/a&gt;
+    &lt;/td&gt;
+    &lt;td class="right" align="right"&gt;
+&lt;!-- Gismeteo informer START --&gt;
+&lt;link rel="stylesheet" type="text/css" href="http://www.gismeteo.ru/static/css/informer2/gs_informerClient.min.css"&gt;
+&lt;div id="gsInformerID-BK20uCAm8Nt55P" class="gsInformer" style="width:200px;height:62px"&gt;
+  &lt;div class="gsIContent"&gt;
+   &lt;div id="cityLink"&gt;
+     &lt;a href="http://www.gismeteo.ru/city/daily/4368/" target="_blank"&gt;Погода в Москве&lt;/a&gt;
+   &lt;/div&gt;
+   &lt;div class="gsLinks"&gt;
+     &lt;table&gt;
+       &lt;tr&gt;
+         &lt;td&gt;
+           &lt;div class="leftCol"&gt;
+             &lt;a href="http://www.gismeteo.ru" target="_blank"&gt;
+               &lt;img alt="Gismeteo" title="Gismeteo" src="http://www.gismeteo.ru/static/images/informer2/logo-mini2.png" align="absmiddle" border="0" /&gt;
+               &lt;span&gt;Gismeteo&lt;/span&gt;
+             &lt;/a&gt;
+           &lt;/div&gt;
+           &lt;div class="rightCol"&gt;
+             &lt;a href="http://www.gismeteo.ru/city/weekly/4368/" target="_blank"&gt;Прогноз на 2 недели&lt;/a&gt;
+           &lt;/div&gt;
+           &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src="http://www.gismeteo.ru/ajax/getInformer/?hash=BK20uCAm8Nt55P" type="text/javascript"&gt;&lt;/script&gt;
+&lt;!-- Gismeteo informer END --&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr class="body-header" height="25"&gt;
+    &lt;td class="menu" bgcolor=#198033&gt;
+&lt;table cellpadding=0 cellspacing=0 class="menu" width="100%"&gt;
+  &lt;tr&gt;
+    &lt;td align="centr"&gt;&lt;a href="http://ntbcargo.ru/"&gt;&lt;font color=#F0F09E&gt;Главная&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td align="centr"&gt;&lt;a href="https://rep-out.ntbroker.ru/ReportServer?%2fUserForms%2fUserName&amp;rs:Command=Render" target="C"&gt;
+              &lt;font color=#F0F09E&gt;Личные данные&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td align="centr"&gt;&lt;a href="https://rep-out.ntbroker.ru/ReportServer/Pages/ReportViewer.aspx?%2fReports%2fReports&amp;rs:Command=Render" target="C"&gt;
+              &lt;font color=#F0F09E&gt;Отчеты&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;
+    &lt;td align="centr"&gt;&lt;a href="newpage.html" target="C"&gt;
+              &lt;font color=#F0F09E&gt;Обратная связь&lt;/font&gt;&lt;/a&gt;&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+
+    &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr valign="top"&gt;&lt;td colspan="3"&gt;
+&lt;!--      Центральная зона --&gt;
+    &lt;table class="centr" width="100%" height="100%" cellspacing="0" cellpadding="0"&gt;
+      &lt;tr valign="top"&gt;
+        &lt;td width="150" bgcolor=#E8E8E8&gt;
+          &lt;span style="font-family: verdana;"&gt;Рекомендуем:&lt;br&gt;&lt;/span&gt;
+          &lt;ol&gt;&lt;font style="font-family: verdana; font-style: normal; font-variant: normal; font-weight: normal; font-size: 9pt; line-height: 12pt; font-size-adjust: none; font-stretch: normal; color: black;"&gt;
+            &lt;li&gt;
+              &lt;a href="http://customsonline.ru/" target="C"&gt;
+              Таможня - все для участников ВЭД&lt;br&gt;&lt;/a&gt;
+            &lt;/li&gt;
+          &lt;/font&gt;&lt;/ol&gt;
+          &lt;hr color="blue" size="1"&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          &lt;IFrame height="100%" width="100%" frameborder="0" src="https://rep-out.ntbroker.ru/ReportServer/Pages/ReportViewer.aspx?%2fReports%2fReports&amp;rs:Command=Render" name="C" class="content"&gt;
+          &lt;/IFrame&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/tr&gt;
+  &lt;tr height="40"&gt;&lt;td&gt;
+&lt;!--      Ноги сайта --&gt;
+    &lt;table class="bottom" width="100%" height="100%" cellspacing="0" cellpadding="0"&gt;
+      &lt;tr bgcolor=#2000ff&gt;
+        &lt;td width="350"&gt;&lt;H6&gt;&lt;font color="white"&gt;
+&amp;copy; 2008 Национальный Таможенный брокер.&lt;br /&gt;
+            Все права защищены и охраняются законом.&lt;/font&gt;&lt;/H6&gt;&lt;/td&gt;
+        &lt;td width="400"&gt;&lt;H6&gt;&lt;font color="white"&gt;
+Россия, МО, 143080, Одинцовский район, Лесной городок&lt;br /&gt;
+            Тел.: +7 (495) 926-33-12 Факс: +7 (495) 926-33-12&lt;br /&gt;
+            E-mail: &lt;a href="mailto:info@ntbcargo.ru"&gt;&lt;font color="yellow"&gt;info@ntbcargo.ru&lt;/font&gt;&lt;/a&gt;&lt;/font&gt;&lt;/H6&gt;&lt;/td&gt;
+        &lt;td align="right"&gt;
+&lt;!-- Yandex.Metrika informer --&gt;
+&lt;a href="https://metrika.yandex.ru/stat/?id=25979536&amp;amp;from=informer"
+target="_blank" rel="nofollow"&gt;&lt;img src="//bs.yandex.ru/informer/25979536/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:25979536,lang:''ru''});return false}catch(e){}"/&gt;&lt;/a&gt;
+&lt;!-- /Yandex.Metrika informer --&gt;
+
+&lt;!-- Yandex.Metrika counter --&gt;
+&lt;script type="text/javascript"&gt;
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter25979536 = new Ya.Metrika({id:25979536,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+&lt;/script&gt;
+&lt;noscript&gt;&lt;div&gt;&lt;img src="//mc.yandex.ru/watch/25979536" style="position:absolute; left:-9999px;" alt="" /&gt;&lt;/div&gt;&lt;/noscript&gt;
+&lt;!-- /Yandex.Metrika counter --&gt;
+        &lt;/td&gt;
+        &lt;td width="100" align="right"&gt;
+&lt;H6&gt;&lt;font color="white"&gt;
+Prodused by BYG E-mail&lt;/font&gt;
+&lt;a href="mailto:byg@inbox.ru"&gt;&lt;font color="yellow"&gt;byg@inbox.ru&lt;/font&gt;&lt;/H6&gt;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+' As HTML</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Width>22cm</Width>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <Height>10.5cm</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <rd:DataSourceID>5dab5ec8-bc2e-4298-a130-2ea8a22614cb</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=OLAP;Initial Catalog=LocalFTS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="DateStart">
+      <DataType>DateTime</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>DateStart</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="DateEnd">
+      <DataType>DateTime</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>DateEnd</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="ND">
+      <DataType>String</DataType>
+      <Prompt>ND</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="TIR">
+      <DataType>String</DataType>
+      <Prompt>TIR</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="dType">
+      <DataType>String</DataType>
+      <Prompt>dType</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="TrD">
+      <DataType>DateTime</DataType>
+      <Prompt>Введите дату и нажмите кнопку 'Просмотр отчета'</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>2.5cm</RightMargin>
+  <LeftMargin>2.5cm</LeftMargin>
+  <BottomMargin>2.5cm</BottomMargin>
+  <rd:ReportID>5ea016a7-cb79-4564-8ed9-16afb3d2f668</rd:ReportID>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="SetTrDate">
+      <Fields>
+        <Field Name="TrDate">
+          <DataField>TrDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>IF EXISTS(SELECT ND FROM LocalFTS.dbo.aTranspDate WHERE (ND = @ND) AND (G442 = @TIR) AND (DType = @dType))
+	UPDATE LocalFTS.dbo.aTranspDate SET TrDate = @TrD
+	WHERE (ND = @ND) AND (G442 =@TIR) AND (DType =@dType)
+ELSE
+INSERT INTO [LocalFTS].[dbo].[aTranspDate]([ND],[G442],[TrDate],[DType])
+     VALUES(@ND, @TIR,@TrD,@dType)
+SELECT TrDate FROM LocalFTS.dbo.aTranspDate WHERE (ND = @ND) AND (G442 =@TIR) AND (DType =@dType)</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@ND">
+            <Value>=Parameters!ND.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@TIR">
+            <Value>=Parameters!TIR.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@dType">
+            <Value>=Parameters!dType.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@TrD">
+            <Value>=Parameters!TrD.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>19.25cm</Width>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <ReportItems>
+      <Textbox Name="textbox2">
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <Top>0.25cm</Top>
+        <Width>7.25cm</Width>
+        <Style>
+          <Color>Maroon</Color>
+          <BackgroundColor>Gainsboro</BackgroundColor>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>12pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <ZIndex>1</ZIndex>
+        <CanGrow>true</CanGrow>
+        <Left>2cm</Left>
+        <Height>0.75cm</Height>
+        <Value>Данные успешно сохранены</Value>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Top>0.25cm</Top>
+        <Action>
+          <Drillthrough>
+            <ReportName>SmolenskGTD</ReportName>
+            <Parameters>
+              <Parameter Name="dtBeg">
+                <Value>=Parameters!DateStart.Value</Value>
+              </Parameter>
+              <Parameter Name="dtEnd">
+                <Value>=Parameters!DateEnd.Value</Value>
+              </Parameter>
+            </Parameters>
+          </Drillthrough>
+        </Action>
+        <Width>5cm</Width>
+        <Style>
+          <Color>Blue</Color>
+          <BackgroundColor>Silver</BackgroundColor>
+          <BorderStyle>
+            <Default>Outset</Default>
+          </BorderStyle>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>12pt</FontSize>
+          <TextDecoration>Underline</TextDecoration>
+          <TextAlign>Center</TextAlign>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Left>9.5cm</Left>
+        <Height>0.75cm</Height>
+        <Value>Вернуться к отчету</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>3.5cm</Height>
+    <Style>
+      <BackgroundColor>Gainsboro</BackgroundColor>
+    </Style>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>

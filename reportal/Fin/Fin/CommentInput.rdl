@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Textbox Name="textbox2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=IIF(Parameters!Saved.Value=0, "Введите текст в поле 'Комментарий' и нажмите кнопку 'Просмотр отчета'", "Ваш комментарий сохранен")</Value>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>DarkBlue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>textbox2</rd:DefaultName>
+        <Top>1.5cm</Top>
+        <Left>0.5cm</Left>
+        <Height>0.25cm</Height>
+        <Width>17cm</Width>
+        <Visibility>
+          <Hidden>true</Hidden>
+        </Visibility>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Вернуться к отчету</Value>
+                <Style>
+                  <FontFamily>Tahoma</FontFamily>
+                  <FontSize>11pt</FontSize>
+                  <TextDecoration>Underline</TextDecoration>
+                  <Color>Blue</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <ActionInfo>
+          <Actions>
+            <Action>
+              <Drillthrough>
+                <ReportName>=Parameters!Report_Name.Value</ReportName>
+                <Parameters>
+                  <Parameter Name="GRP">
+                    <Value>=Parameters!GRP.Value</Value>
+                  </Parameter>
+                  <Parameter Name="Uchet">
+                    <Value>=Parameters!Uchet.Value</Value>
+                  </Parameter>
+                  <Parameter Name="DateStart">
+                    <Value>=Parameters!DateStart.Value</Value>
+                  </Parameter>
+                  <Parameter Name="DateEnd">
+                    <Value>=Parameters!DateEnd.Value</Value>
+                  </Parameter>
+                  <Parameter Name="CFO">
+                    <Value>=Parameters!CFO.Value</Value>
+                  </Parameter>
+                  <Parameter Name="CFO_expanded">
+                    <Value>=Parameters!CFOExpanded.Value</Value>
+                  </Parameter>
+                  <Parameter Name="Cust_expanded">
+                    <Value>=Parameters!CustExpanded.Value</Value>
+                  </Parameter>
+                  <Parameter Name="Month_expanded">
+                    <Value>=Parameters!MonthExpanded.Value</Value>
+                  </Parameter>
+                </Parameters>
+              </Drillthrough>
+            </Action>
+          </Actions>
+        </ActionInfo>
+        <Top>0.25cm</Top>
+        <Left>12.25cm</Left>
+        <Height>0.75cm</Height>
+        <Width>5cm</Width>
+        <ZIndex>1</ZIndex>
+        <Visibility>
+          <Hidden>=(Parameters!Saved.Value=0)</Hidden>
+        </Visibility>
+        <DataElementOutput>NoOutput</DataElementOutput>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="CommentAdded_1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!CommentAdded.Value, "AddComment")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>CommentAdded_1</rd:DefaultName>
+        <Top>3cm</Top>
+        <Left>0.25cm</Left>
+        <Height>0.25cm</Height>
+        <Width>9.5cm</Width>
+        <ZIndex>2</ZIndex>
+        <Visibility>
+          <Hidden>true</Hidden>
+        </Visibility>
+        <Style>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Tablix Name="table1">
+        <TablixBody>
+          <TablixColumns>
+            <TablixColumn>
+              <Width>12cm</Width>
+            </TablixColumn>
+          </TablixColumns>
+          <TablixRows>
+            <TablixRow>
+              <Height>0.63492cm</Height>
+              <TablixCells>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="textbox3">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=IIF(Parameters!Saved.Value=0, "Введите текст в поле 'Комментарий' и нажмите кнопку 'Просмотр отчета'", "Ваш комментарий сохранен")</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>DarkBlue</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>textbox3</rd:DefaultName>
+                      <Style>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+              </TablixCells>
+            </TablixRow>
+          </TablixRows>
+        </TablixBody>
+        <TablixColumnHierarchy>
+          <TablixMembers>
+            <TablixMember />
+          </TablixMembers>
+        </TablixColumnHierarchy>
+        <TablixRowHierarchy>
+          <TablixMembers>
+            <TablixMember>
+              <KeepWithGroup>After</KeepWithGroup>
+              <KeepTogether>true</KeepTogether>
+            </TablixMember>
+          </TablixMembers>
+        </TablixRowHierarchy>
+        <DataSetName>AddComment</DataSetName>
+        <Top>0.25cm</Top>
+        <Height>0.63492cm</Height>
+        <Width>12cm</Width>
+        <ZIndex>3</ZIndex>
+        <Style />
+      </Tablix>
+    </ReportItems>
+    <Height>3.25cm</Height>
+    <Style />
+  </Body>
+  <Width>19.25cm</Width>
+  <Page>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <InteractiveHeight>11in</InteractiveHeight>
+    <InteractiveWidth>8.5in</InteractiveWidth>
+    <LeftMargin>2.5cm</LeftMargin>
+    <RightMargin>2.5cm</RightMargin>
+    <TopMargin>2.5cm</TopMargin>
+    <BottomMargin>2.5cm</BottomMargin>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="reportal">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=reportal\s2012;Initial Catalog=LocalFTS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>5dab5ec8-bc2e-4298-a130-2ea8a22614cb</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="AddComment">
+      <Query>
+        <DataSourceName>reportal</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Comment">
+            <Value>=Parameters!Comment.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@RepName">
+            <Value>=Parameters!RepName.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Doc_No">
+            <Value>=Parameters!Doc_No.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Author">
+            <Value>=Parameters!Author.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>INSERT INTO aLog
+                      (aDate, aLogin, aReport)
+VALUES     (GetDate(), SYSTEM_USER,@RepName); 
+IF LEN(ISNULL(@Comment, ''))&gt;0
+BEGIN
+INSERT INTO aNavCust_Ledger_Comment ([Document No_], Comment, Author,Date)
+VALUES     (@Doc_No,@Comment, @Author, GetDate());
+SELECT     TOP (1) Comment AS CommentAdded
+FROM         aNavCust_Ledger_Comment
+WHERE     ([Document No_] =@Doc_No)
+ORDER BY IdComment DESC;
+END
+ELSE
+BEGIN
+SELECT     @Comment AS CommentAdded
+END</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="CommentAdded">
+          <DataField>CommentAdded</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="dsSaved">
+      <Query>
+        <DataSourceName>reportal</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@Comment">
+            <Value>=Parameters!Comment.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT  LEN(ISNULL(@Comment, '')) AS Saved</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="Saved">
+          <DataField>Saved</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="GRP">
+      <DataType>String</DataType>
+      <Prompt>GRP</Prompt>
+      <Hidden>true</Hidden>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Uchet">
+      <DataType>Integer</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Uchet</Prompt>
+      <Hidden>true</Hidden>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="DateStart">
+      <DataType>DateTime</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>DateStart</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="DateEnd">
+      <DataType>DateTime</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>DateEnd</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CFO">
+      <DataType>String</DataType>
+      <Prompt>CFO</Prompt>
+      <Hidden>true</Hidden>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="Doc_No">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value />
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Doc_No</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CustExpanded">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Cust_No</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="CFOExpanded">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>CFOExpanded</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="Comment">
+      <DataType>String</DataType>
+      <Prompt>Введите комментарий и нажмите кнопку 'Просмотр отчета'</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Saved">
+      <DataType>Integer</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>dsSaved</DataSetName>
+          <ValueField>Saved</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Saved</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="Author">
+      <DataType>String</DataType>
+      <Prompt>Author</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="MonthExpanded">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Month_expanded</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="Report_Name">
+      <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Report_Name</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="RepName">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>=Globals!ReportName</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Rep Name</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+  </ReportParameters>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>5ea016a7-cb79-4564-8ed9-16afb3d2f668</rd:ReportID>
+</Report>

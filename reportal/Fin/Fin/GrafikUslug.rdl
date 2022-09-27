@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="LocalFTS">
+      <rd:DataSourceID>8f009fd8-acbe-4ba8-9fa7-a185adb107b1</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=OLAP;Initial Catalog=LocalFTS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="CFO">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>CFO</DataSetName>
+          <ValueField>Global_Dimension_1_Code</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>ЦФО</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>CFO</DataSetName>
+          <ValueField>Global_Dimension_1_Code</ValueField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="BjNo">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <DataSetReference>
+          <DataSetName>BudgetItems</DataSetName>
+          <ValueField>BudgetItemNo</ValueField>
+        </DataSetReference>
+      </DefaultValue>
+      <Prompt>Статьи бюджета</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>BudgetItems</DataSetName>
+          <ValueField>BudgetItemNo</ValueField>
+          <LabelField>BudgetItemName</LabelField>
+        </DataSetReference>
+      </ValidValues>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>2.5cm</RightMargin>
+  <LeftMargin>2.5cm</LeftMargin>
+  <BottomMargin>2.5cm</BottomMargin>
+  <rd:ReportID>2ca72339-eb85-4fad-bdb0-d7c55699d605</rd:ReportID>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="LocalFTS">
+      <Fields>
+        <Field Name="AmountSum">
+          <DataField>AmountSum</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DayAmount">
+          <DataField>DayAmount</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="DayAmountPrev">
+          <DataField>DayAmountPrev</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Mn">
+          <DataField>Mn</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>LocalFTS</DataSourceName>
+        <CommandText>SELECT     SUM(Amount) AS AmountSum, SUM(Amount) / DD AS DayAmount, SUM(AmountPrev) / DD AS DayAmountPrev, MONTH([Posting Date]) AS Mn
+FROM         (SELECT     NAVServicesLedgerEntry.Amount, NAVResponsibilityCenter2.[Global Dimension 1 Code] AS CFO, 
+                                              NAVDefaultDimension.[Dimension Value Code] AS BudgetItemNo, NAVDimensionValue.Name AS BudgetItemName, 
+                                              NAVServicesLedgerEntry.[Posting Date], CASE WHEN month(NAVServicesLedgerEntry.[Posting Date]) &lt; month(GETDATE()) 
+                                              THEN DATEDIFF(dd, dateadd(mm, - 1, dateadd(d, 1 - day(getdate()), getdate())), dateadd(d, 1 - day(getdate()), getdate())) ELSE day(getdate()) 
+                                              END AS DD, CASE WHEN month(NAVServicesLedgerEntry.[Posting Date]) &lt; month(GETDATE()) 
+                                              THEN NAVServicesLedgerEntry.Amount ELSE 0 END AS AmountPrev
+                       FROM          [NAVServices Ledger Entry] AS NAVServicesLedgerEntry INNER JOIN
+                                              NAVDefaultDimension ON NAVServicesLedgerEntry.[Service Code] = NAVDefaultDimension.No_ INNER JOIN
+                                              NAVDimensionValue ON NAVDefaultDimension.[Dimension Value Code] = NAVDimensionValue.Code INNER JOIN
+                                              NAVResponsibilityCenter2 ON NAVServicesLedgerEntry.[Responsibility Center] = NAVResponsibilityCenter2.Code
+                       WHERE      (NAVServicesLedgerEntry.Advance &lt;&gt; 1) AND (NAVServicesLedgerEntry.Amount &gt; 0) AND 
+                                              (NAVDefaultDimension.[Dimension Code] = 'СТАТЬЯБЮДЖЕТА') AND (NAVDefaultDimension.[Table ID] = 156) AND 
+                                              (NAVDimensionValue.[Dimension Code] = 'СТАТЬЯБЮДЖЕТА') AND (NAVDefaultDimension.[Dimension Value Code] IN (@BjNo)) AND 
+                                              (NAVResponsibilityCenter2.[Global Dimension 1 Code] IN (@CFO))) AS navServices
+WHERE     ([Posting Date] &gt;= DATEADD(mm, - 1, DATEADD(d, 1 - DAY(GETDATE()), GETDATE()))) AND ([Posting Date] &lt;= GETDATE())
+GROUP BY MONTH([Posting Date]), DD
+ORDER BY Mn</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@BjNo">
+            <Value>=Parameters!BjNo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@CFO">
+            <Value>=Parameters!CFO.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+    <DataSet Name="CFO">
+      <Fields>
+        <Field Name="Global_Dimension_1_Code">
+          <DataField>Global Dimension 1 Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>LocalFTS</DataSourceName>
+        <CommandText>SELECT     [Global Dimension 1 Code]
+FROM         [NAVCust_ Ledger Entry]
+WHERE     ([Global Dimension 1 Code] &gt; '')
+GROUP BY [Global Dimension 1 Code]
+ORDER BY [Global Dimension 1 Code]</CommandText>
+      </Query>
+    </DataSet>
+    <DataSet Name="BudgetItems">
+      <Fields>
+        <Field Name="BudgetItemNo">
+          <DataField>BudgetItemNo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BudgetItemName">
+          <DataField>BudgetItemName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>LocalFTS</DataSourceName>
+        <CommandText>SELECT     [NAVDefault Dimension].[Dimension Value Code] AS BudgetItemNo, [NAVDimension Value].Name AS BudgetItemName
+FROM         [NAVDefault Dimension] INNER JOIN
+                      [NAVDimension Value] ON [NAVDefault Dimension].[Dimension Value Code] = [NAVDimension Value].Code
+WHERE     ([NAVDefault Dimension].[Table ID] = 156) AND ([NAVDefault Dimension].[Dimension Code] = 'СТАТЬЯБЮДЖЕТА')
+GROUP BY [NAVDefault Dimension].[Dimension Value Code], [NAVDimension Value].Name</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Code />
+  <Width>11cm</Width>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <ReportItems>
+      <Chart Name="chart1">
+        <Legend>
+          <Style>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+          <Position>RightCenter</Position>
+        </Legend>
+        <CategoryAxis>
+          <Axis>
+            <Title>
+              <Caption>Месяц</Caption>
+            </Title>
+            <MajorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Visible>true</Visible>
+          </Axis>
+        </CategoryAxis>
+        <ZIndex>1</ZIndex>
+        <DataSetName>LocalFTS</DataSetName>
+        <PlotArea>
+          <Style>
+            <BackgroundColor>LightGrey</BackgroundColor>
+            <BorderStyle>
+              <Default>Solid</Default>
+            </BorderStyle>
+          </Style>
+        </PlotArea>
+        <ThreeDProperties>
+          <Enabled>true</Enabled>
+          <Rotation>30</Rotation>
+          <Inclination>30</Inclination>
+          <Shading>Simple</Shading>
+          <WallThickness>50</WallThickness>
+        </ThreeDProperties>
+        <PointWidth>0</PointWidth>
+        <Top>2.5cm</Top>
+        <Subtype>Plain</Subtype>
+        <ValueAxis>
+          <Axis>
+            <Title>
+              <Caption>Сумма услуг в среднем в день (руб.)</Caption>
+            </Title>
+            <MajorGridLines>
+              <ShowGridLines>true</ShowGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MajorGridLines>
+            <MinorGridLines>
+              <Style>
+                <BorderStyle>
+                  <Default>Solid</Default>
+                </BorderStyle>
+              </Style>
+            </MinorGridLines>
+            <MajorTickMarks>Outside</MajorTickMarks>
+            <Min>0</Min>
+            <Margin>true</Margin>
+            <Visible>true</Visible>
+            <Scalar>true</Scalar>
+          </Axis>
+        </ValueAxis>
+        <Type>Column</Type>
+        <Width>10.75cm</Width>
+        <CategoryGroupings>
+          <CategoryGrouping>
+            <DynamicCategories>
+              <Grouping Name="chart1_CategoryGroup1">
+                <GroupExpressions>
+                  <GroupExpression>=Fields!Mn.Value</GroupExpression>
+                </GroupExpressions>
+              </Grouping>
+              <Label>=Fields!Mn.Value</Label>
+            </DynamicCategories>
+          </CategoryGrouping>
+        </CategoryGroupings>
+        <Palette>Default</Palette>
+        <ChartData>
+          <ChartSeries>
+            <DataPoints>
+              <DataPoint>
+                <DataValues>
+                  <DataValue>
+                    <Value>=Sum(Fields!DayAmount.Value)</Value>
+                  </DataValue>
+                </DataValues>
+                <DataLabel />
+                <Style>
+                  <BackgroundColor>=IIF(Fields!Mn.Value &lt; Month(Today), "Blue", IIf(Sum(Fields!DayAmountPrev.Value, "LocalFTS") &lt;= SUM(Fields!DayAmount.Value), "Green", "RED"))</BackgroundColor>
+                </Style>
+                <Marker>
+                  <Size>6pt</Size>
+                </Marker>
+              </DataPoint>
+            </DataPoints>
+          </ChartSeries>
+        </ChartData>
+        <Style>
+          <BackgroundColor>White</BackgroundColor>
+        </Style>
+        <Title />
+        <Height>7.5cm</Height>
+      </Chart>
+      <Textbox Name="textbox1">
+        <rd:DefaultName>textbox1</rd:DefaultName>
+        <Style>
+          <Color>SteelBlue</Color>
+          <FontFamily>Tahoma</FontFamily>
+          <FontSize>14pt</FontSize>
+          <FontWeight>700</FontWeight>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+        <CanGrow>true</CanGrow>
+        <Height>1.5cm</Height>
+        <Value>Сумма оказанных услуг в среднем в день за предыдущий и текущий месяц</Value>
+      </Textbox>
+    </ReportItems>
+    <Height>10.25cm</Height>
+  </Body>
+  <AutoRefresh>60</AutoRefresh>
+  <Language>en-US</Language>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>

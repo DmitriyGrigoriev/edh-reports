@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2005/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSources>
+    <DataSource Name="LocalFTS">
+      <rd:DataSourceID>7df30012-992d-417f-84d4-f99a05207e34</rd:DataSourceID>
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=OLAP;Initial Catalog=LocalFTS</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+    </DataSource>
+  </DataSources>
+  <InteractiveHeight>11in</InteractiveHeight>
+  <ReportParameters>
+    <ReportParameter Name="SD">
+      <DataType>String</DataType>
+      <Prompt>SD</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ED">
+      <DataType>String</DataType>
+      <Prompt>ED</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CFO">
+      <DataType>String</DataType>
+      <Prompt>CFO</Prompt>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="GRP">
+      <DataType>String</DataType>
+      <Prompt>GRP</Prompt>
+      <MultiValue>true</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="No">
+      <DataType>String</DataType>
+      <Prompt>No</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <rd:DrawGrid>true</rd:DrawGrid>
+  <InteractiveWidth>8.5in</InteractiveWidth>
+  <rd:GridSpacing>0.25cm</rd:GridSpacing>
+  <rd:SnapToGrid>true</rd:SnapToGrid>
+  <RightMargin>2.5cm</RightMargin>
+  <LeftMargin>2.5cm</LeftMargin>
+  <BottomMargin>2.5cm</BottomMargin>
+  <rd:ReportID>be96bced-e1ed-4a4e-a557-6d4e2c1ecae2</rd:ReportID>
+  <PageWidth>21cm</PageWidth>
+  <DataSets>
+    <DataSet Name="LocalFTS">
+      <Fields>
+        <Field Name="NSIPrice">
+          <DataField>NSIPrice</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NSIDescription">
+          <DataField>NSIDescription</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Journal_Batch_Name">
+          <DataField>Journal Batch Name</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Budget_Code">
+          <DataField>Budget Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Description">
+          <DataField>Description</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Standard_Budget_Code">
+          <DataField>Standard Budget Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Posting_Date">
+          <DataField>Posting Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Recurring_Before_Date">
+          <DataField>Recurring Before Date</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="CFO">
+          <DataField>CFO</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Grp">
+          <DataField>Grp</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Bdj">
+          <DataField>Bdj</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Otd">
+          <DataField>Otd</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Shortcut_Dimension_5_Code">
+          <DataField>Shortcut Dimension 5 Code</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Quantity">
+          <DataField>Quantity</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Price">
+          <DataField>Price</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Amount">
+          <DataField>Amount</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Aмount__LCY_">
+          <DataField>Aмount (LCY)</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Create_User_ID">
+          <DataField>Create User ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Entry_No_">
+          <DataField>Entry No_</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Q">
+          <DataField>Q</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+      </Fields>
+      <Query>
+        <DataSourceName>LocalFTS</DataSourceName>
+        <CommandText>SELECT     [NAVStandard Description].Price AS NSIPrice, [NAVStandard Description].Description AS NSIDescription, 
+                      [NAVPosted Quote to Budget].[Journal Batch Name], [NAVPosted Quote to Budget].[Budget Code], [NAVPosted Quote to Budget].Description, 
+                      [NAVPosted Quote to Budget].[Standard Budget Code], [NAVPosted Quote to Budget].[Posting Date], 
+                      [NAVPosted Quote to Budget].[Recurring Before Date], [NAVPosted Quote to Budget].[Shortcut Dimension 1 Code] AS CFO, 
+                      [NAVPosted Quote to Budget].[Shortcut Dimension 2 Code] AS Grp, [NAVPosted Quote to Budget].[Shortcut Dimension 3 Code] AS Bdj, 
+                      [NAVPosted Quote to Budget].[Shortcut Dimension 4 Code] AS Otd, [NAVPosted Quote to Budget].[Shortcut Dimension 5 Code], 
+                      [NAVPosted Quote to Budget].Quantity, [NAVPosted Quote to Budget].Price, [NAVPosted Quote to Budget].Amount, 
+                      [NAVPosted Quote to Budget].[Aмount (LCY)], [NAVPosted Quote to Budget].[Create User ID], [NAVPosted Quote to Budget].[Entry No_], t.Q
+FROM         [NAVPosted Quote to Budget] INNER JOIN
+                      [NAVStandard Description] ON [NAVPosted Quote to Budget].[Standard Budget Code] = [NAVStandard Description].Code LEFT OUTER JOIN
+                          (SELECT     [Entry No_], SUM(Qty) AS Q
+                            FROM          aPostedQuoteToBudget
+                            GROUP BY [Entry No_]) AS t ON [NAVPosted Quote to Budget].[Entry No_] = t.[Entry No_]
+WHERE     ([NAVPosted Quote to Budget].[Entry No_] = @No)</CommandText>
+        <QueryParameters>
+          <QueryParameter Name="@No">
+            <Value>=Parameters!No.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Width>18.25cm</Width>
+  <Body>
+    <ColumnSpacing>1cm</ColumnSpacing>
+    <ReportItems>
+      <Table Name="table1">
+        <DataSetName>LocalFTS</DataSetName>
+        <Top>5.5cm</Top>
+        <Header>
+          <TableRows>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ColSpan>2</ColSpan>
+                  <ReportItems>
+                    <Textbox Name="textbox2">
+                      <rd:DefaultName>textbox2</rd:DefaultName>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>2</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>="Вы уверены, что хотите списать один "+Fields!Description.Value</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.55873cm</Height>
+            </TableRow>
+            <TableRow>
+              <TableCells>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox1">
+                      <rd:DefaultName>textbox1</rd:DefaultName>
+                      <Action>
+                        <Drillthrough>
+                          <ReportName>Spisano</ReportName>
+                          <Parameters>
+                            <Parameter Name="SD">
+                              <Value>=Parameters!SD.Value</Value>
+                            </Parameter>
+                            <Parameter Name="ED">
+                              <Value>=Parameters!ED.Value</Value>
+                            </Parameter>
+                            <Parameter Name="CFO">
+                              <Value>=Parameters!CFO.Value</Value>
+                            </Parameter>
+                            <Parameter Name="GRP">
+                              <Value>=Parameters!GRP.Value</Value>
+                            </Parameter>
+                            <Parameter Name="Spisat">
+                              <Value>=Parameters!No.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                        </Drillthrough>
+                      </Action>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <ZIndex>1</ZIndex>
+                      <CanGrow>true</CanGrow>
+                      <Value>Да</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+                <TableCell>
+                  <ReportItems>
+                    <Textbox Name="textbox4">
+                      <rd:DefaultName>textbox4</rd:DefaultName>
+                      <Action>
+                        <Drillthrough>
+                          <ReportName>Cartridzhi</ReportName>
+                          <Parameters>
+                            <Parameter Name="SD">
+                              <Value>=Parameters!SD.Value</Value>
+                            </Parameter>
+                            <Parameter Name="ED">
+                              <Value>=Parameters!ED.Value</Value>
+                            </Parameter>
+                            <Parameter Name="CFO">
+                              <Value>=Parameters!CFO.Value</Value>
+                            </Parameter>
+                            <Parameter Name="GRP">
+                              <Value>=Parameters!GRP.Value</Value>
+                            </Parameter>
+                          </Parameters>
+                        </Drillthrough>
+                      </Action>
+                      <Style>
+                        <Color>White</Color>
+                        <BackgroundColor>SteelBlue</BackgroundColor>
+                        <BorderColor>
+                          <Default>LightGrey</Default>
+                        </BorderColor>
+                        <BorderStyle>
+                          <Default>Solid</Default>
+                        </BorderStyle>
+                        <FontFamily>Tahoma</FontFamily>
+                        <FontSize>11pt</FontSize>
+                        <FontWeight>700</FontWeight>
+                        <TextAlign>Center</TextAlign>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                      <CanGrow>true</CanGrow>
+                      <Value>Нет</Value>
+                    </Textbox>
+                  </ReportItems>
+                </TableCell>
+              </TableCells>
+              <Height>0.63492cm</Height>
+            </TableRow>
+          </TableRows>
+          <RepeatOnNewPage>true</RepeatOnNewPage>
+        </Header>
+        <TableColumns>
+          <TableColumn>
+            <Width>6.25cm</Width>
+          </TableColumn>
+          <TableColumn>
+            <Width>9.5cm</Width>
+          </TableColumn>
+        </TableColumns>
+        <Left>2.5cm</Left>
+      </Table>
+    </ReportItems>
+    <Height>6.69365cm</Height>
+  </Body>
+  <Language>en-US</Language>
+  <TopMargin>2.5cm</TopMargin>
+  <PageHeight>29.7cm</PageHeight>
+</Report>
